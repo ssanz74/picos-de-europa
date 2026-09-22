@@ -637,7 +637,7 @@ img { max-width:100%; }
       return DIAS[d.getDay()] + " " + d.getDate() + " de " + MES[d.getMonth()];
     }
     try { var g = localStorage.getItem("picos-salida"); if (g) din.value = g; } catch (e) {}
-    if (!din.value) { var h = new Date(); h.setDate(h.getDate() + 1); din.value = iso(h); }
+    if (!din.value) din.value = "2026-09-25";   /* salida prevista del viaje */
 
     function pintaFechas() {
       var d0 = new Date(din.value + "T12:00:00");
