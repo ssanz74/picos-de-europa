@@ -152,6 +152,15 @@ h1 { font-size:clamp(30px,6vw,46px); font-weight:700; letter-spacing:-.02em; lin
 .ftable .hr { font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--mut); }
 .ftable .ob { color:var(--mid); font-size:13px; }
 .fwrap { overflow-x:auto; }
+.fnow { margin:0 0 14px; display:flex; flex-wrap:wrap; align-items:baseline; gap:10px; }
+.fbtn { font:inherit; font-size:14px; color:var(--acc); background:none; border:0; padding:0;
+  cursor:pointer; border-bottom:1px solid currentColor; }
+.fbtn[disabled] { color:var(--mut); cursor:default; }
+.fmsg { font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--mut); }
+.ftable .up .v { color:var(--rojo); }
+.ftable .down .v { color:var(--verde); }
+.ftable .delta { display:block; font-family:"IBM Plex Mono",monospace; font-size:10.5px;
+  color:var(--mut); font-weight:400; }
 
 /* ---- notes ---- */
 .notes { margin-top:34px; border-top:2px solid var(--ink); padding-top:18px; }
@@ -340,10 +349,14 @@ img { max-width:100%; }
       Precios del <strong>21 de septiembre de 2026</strong>, tomados del registro oficial de precios de
       carburantes del Ministerio. Cambian a diario, así que úsalos para saber
       <em>dónde</em> parar más que <em>cuánto</em> vas a pagar: el ranking entre gasolineras se
-      mueve mucho menos que el precio. Van también como waypoints dentro de cada <code>.gpx</code>.</p>
+      mueve mucho menos que el precio. Van también como waypoints dentro de cada <code>.gpx</code>,
+      aunque ahí el precio se queda congelado para siempre: los <code>.gpx</code> son archivos, no
+      se actualizan solos.</p>
+    <p class="fnow"><button class="fbtn" type="button" id="fupd">Traer los precios de hoy</button>
+      <span class="fmsg" id="fmsg"></span></p>
     <div class="fwrap"><table class="ftable">
       <thead><tr><th>95 E5</th><th>Estación</th><th>Horario</th><th></th></tr></thead>
-      <tbody><tr class="f-day"><td colspan="4">Día 1 · San Martín de la Vega → Náveda</td></tr><tr><td class="pr best">1,829 €</td><td><strong>Petroprix</strong><br>Aranda de Duero</td><td class="hr">24 h</td><td class="ob">1,2 km de la A-1</td></tr><tr><td class="pr">1,849 €</td><td><strong>Norpetrol Ory</strong><br>Burgos</td><td class="hr">24 h</td><td class="ob">0,8 km del track</td></tr><tr><td class="pr">1,899 €</td><td><strong>Beroil</strong><br>Aguilar de Campoo</td><td class="hr">00:00-23:59</td><td class="ob">0,9 km del track</td></tr><tr class="f-day"><td colspan="4">Día 2 · Náveda → Cangas de Onís</td></tr><tr><td class="pr">1,869 €</td><td><strong>Combuscan</strong><br>Unquera (Val de San Vicente)</td><td class="hr">L-S 06:00-23:00; D 08:00-23:00</td><td class="ob">A pie de N-634</td></tr><tr><td class="pr">1,959 €</td><td><strong>El Centro</strong><br>Llanes</td><td class="hr">24 h</td><td class="ob">1,3 km del track</td></tr><tr><td class="pr">1,849 €</td><td><strong>Ballenoil</strong><br>Arriondas (Parres)</td><td class="hr">24 h</td><td class="ob">0,9 km del track</td></tr><tr class="f-day"><td colspan="4">Día 3 · Cangas de Onís → Tresviso → Liébana → Cangas de Onís</td></tr><tr><td class="pr">1,909 €</td><td><strong>Esc-Petróleos</strong><br>Cangas de Onís</td><td class="hr">06:00-23:00</td><td class="ob">Salida de etapa</td></tr><tr><td class="pr">1,909 €</td><td><strong>Esc-Petróleos</strong><br>Arenas de Cabrales</td><td class="hr">08:00-22:00</td><td class="ob">A pie de AS-114</td></tr><tr><td class="pr">1,959 €</td><td><strong>E.S. Liébana</strong><br>Tama (Cillorigo)</td><td class="hr">07:00-22:00</td><td class="ob">2 km antes de Potes</td></tr><tr class="f-day"><td colspan="4">Día 4 · Cangas de Onís → Infiesto</td></tr><tr><td class="pr">1,849 €</td><td><strong>Ballenoil</strong><br>Arriondas (Parres)</td><td class="hr">24 h</td><td class="ob">Km 6: el último antes de la montaña</td></tr><tr><td class="pr">2,009 €</td><td><strong>BP Infiesto</strong><br>Infiesto (Piloña)</td><td class="hr">06:00-22:00</td><td class="ob">Fin de etapa</td></tr><tr class="f-day"><td colspan="4">Día 5 · Infiesto → León</td></tr><tr><td class="pr">1,879 €</td><td><strong>Ballenoil</strong><br>Oviedo</td><td class="hr">24 h</td><td class="ob">0,5 km del track</td></tr><tr><td class="pr">1,890 €</td><td><strong>E.S. Valle de Trubia</strong><br>Proaza</td><td class="hr">07:00-22:00</td><td class="ob">A pie de AS-228</td></tr><tr><td class="pr">1,989 €</td><td><strong>Petronor</strong><br>Teverga</td><td class="hr">07:00-17:30</td><td class="ob">Cierra a las 17:30</td></tr><tr><td class="pr">2,039 €</td><td><strong>Moeve</strong><br>Pola de Lena</td><td class="hr">06:00-22:00</td><td class="ob">La última antes de Pajares</td></tr></tbody>
+      <tbody><tr class="f-day"><td colspan="4">Día 1 · San Martín de la Vega → Náveda</td></tr><tr><td class="pr best" data-ee="14458" data-pv="09" data-base="1.829"><span class="v">1,829 €</span></td><td><strong>Petroprix</strong><br>Aranda de Duero</td><td class="hr">24 h</td><td class="ob">1,2 km de la A-1</td></tr><tr><td class="pr" data-ee="14798" data-pv="09" data-base="1.849"><span class="v">1,849 €</span></td><td><strong>Norpetrol Ory</strong><br>Burgos</td><td class="hr">24 h</td><td class="ob">0,8 km del track</td></tr><tr><td class="pr" data-ee="10167" data-pv="34" data-base="1.899"><span class="v">1,899 €</span></td><td><strong>Beroil</strong><br>Aguilar de Campoo</td><td class="hr">00:00-23:59</td><td class="ob">0,9 km del track</td></tr><tr class="f-day"><td colspan="4">Día 2 · Náveda → Cangas de Onís</td></tr><tr><td class="pr" data-ee="1009" data-pv="39" data-base="1.869"><span class="v">1,869 €</span></td><td><strong>Combuscan</strong><br>Unquera (Val de San Vicente)</td><td class="hr">L-S 06:00-23:00; D 08:00-23:00</td><td class="ob">A pie de N-634</td></tr><tr><td class="pr" data-ee="372" data-pv="33" data-base="1.959"><span class="v">1,959 €</span></td><td><strong>El Centro</strong><br>Llanes</td><td class="hr">24 h</td><td class="ob">1,3 km del track</td></tr><tr><td class="pr" data-ee="16070" data-pv="33" data-base="1.849"><span class="v">1,849 €</span></td><td><strong>Ballenoil</strong><br>Arriondas (Parres)</td><td class="hr">24 h</td><td class="ob">0,9 km del track</td></tr><tr class="f-day"><td colspan="4">Día 3 · Cangas de Onís → Tresviso → Liébana → Cangas de Onís</td></tr><tr><td class="pr" data-ee="11962" data-pv="33" data-base="1.909"><span class="v">1,909 €</span></td><td><strong>Esc-Petróleos</strong><br>Cangas de Onís</td><td class="hr">06:00-23:00</td><td class="ob">Salida de etapa</td></tr><tr><td class="pr" data-ee="853" data-pv="33" data-base="1.909"><span class="v">1,909 €</span></td><td><strong>Esc-Petróleos</strong><br>Arenas de Cabrales</td><td class="hr">08:00-22:00</td><td class="ob">A pie de AS-114</td></tr><tr><td class="pr" data-ee="1016" data-pv="39" data-base="1.959"><span class="v">1,959 €</span></td><td><strong>E.S. Liébana</strong><br>Tama (Cillorigo)</td><td class="hr">07:00-22:00</td><td class="ob">2 km antes de Potes</td></tr><tr class="f-day"><td colspan="4">Día 4 · Cangas de Onís → Infiesto</td></tr><tr><td class="pr" data-ee="16070" data-pv="33" data-base="1.849"><span class="v">1,849 €</span></td><td><strong>Ballenoil</strong><br>Arriondas (Parres)</td><td class="hr">24 h</td><td class="ob">Km 6: el último antes de la montaña</td></tr><tr><td class="pr" data-ee="386" data-pv="33" data-base="2.009"><span class="v">2,009 €</span></td><td><strong>BP Infiesto</strong><br>Infiesto (Piloña)</td><td class="hr">06:00-22:00</td><td class="ob">Fin de etapa</td></tr><tr class="f-day"><td colspan="4">Día 5 · Infiesto → León</td></tr><tr><td class="pr" data-ee="15876" data-pv="33" data-base="1.879"><span class="v">1,879 €</span></td><td><strong>Ballenoil</strong><br>Oviedo</td><td class="hr">24 h</td><td class="ob">0,5 km del track</td></tr><tr><td class="pr" data-ee="10705" data-pv="33" data-base="1.890"><span class="v">1,890 €</span></td><td><strong>E.S. Valle de Trubia</strong><br>Proaza</td><td class="hr">07:00-22:00</td><td class="ob">A pie de AS-228</td></tr><tr><td class="pr" data-ee="11008" data-pv="33" data-base="1.989"><span class="v">1,989 €</span></td><td><strong>Petronor</strong><br>Teverga</td><td class="hr">07:00-17:30</td><td class="ob">Cierra a las 17:30</td></tr><tr><td class="pr" data-ee="959" data-pv="33" data-base="2.039"><span class="v">2,039 €</span></td><td><strong>Moeve</strong><br>Pola de Lena</td><td class="hr">06:00-22:00</td><td class="ob">La última antes de Pajares</td></tr></tbody>
     </table></div>
   </section>
   <section class="notes">
@@ -513,6 +526,55 @@ img { max-width:100%; }
     var st = D.filter(function (s) { return s.n === +b.dataset.gpx; })[0];
     save(st.file, new Blob([gpx(st)], { type: "application/gpx+xml" }));
   });
+  /* --- precios de gasolina del dia, desde el API oficial del Ministerio --- */
+  var API = "https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/";
+  var btn = document.getElementById("fupd"), msg = document.getElementById("fmsg");
+  function eur(v) { return v.toFixed(3).replace(".", ",") + " €"; }
+  if (btn) btn.addEventListener("click", function () {
+    var cells = [].slice.call(document.querySelectorAll(".ftable td[data-ee]"));
+    var provs = {}; cells.forEach(function (c) { provs[c.dataset.pv] = 1; });
+    var list = Object.keys(provs);
+    btn.disabled = true; msg.textContent = "consultando…";
+    Promise.all(list.map(function (pv) {
+      return fetch(API + "EstacionesTerrestres/FiltroProvinciaProducto/" + pv + "/1")
+        .then(function (r) { if (!r.ok) throw 0; return r.json(); });
+    })).then(function (res) {
+      var price = {}, fecha = "";
+      res.forEach(function (j) {
+        fecha = j.Fecha || fecha;
+        (j.ListaEESSPrecio || []).forEach(function (e) {
+          var v = parseFloat(String(e.PrecioProducto).replace(",", "."));
+          if (v > 0) price[e.IDEESS] = v;
+        });
+      });
+      var n = 0, best = Infinity;
+      cells.forEach(function (c) { var v = price[c.dataset.ee]; if (v && v < best) best = v; });
+      cells.forEach(function (c) {
+        var v = price[c.dataset.ee];
+        var span = c.querySelector(".v");
+        if (!v) { c.classList.add("gone"); span.textContent = "sin dato"; return; }
+        n++;
+        var base = parseFloat(c.dataset.base), d = v - base;
+        span.textContent = eur(v);
+        c.classList.remove("up", "down", "best");
+        if (d > 0.0005) c.classList.add("up");
+        else if (d < -0.0005) c.classList.add("down");
+        if (Math.abs(v - best) < 0.0005) c.classList.add("best");
+        var old = c.querySelector(".delta"); if (old) old.remove();
+        if (Math.abs(d) > 0.0005) {
+          var s = document.createElement("span"); s.className = "delta";
+          s.textContent = (d > 0 ? "+" : "−") + Math.abs(d).toFixed(3).replace(".", ",");
+          c.appendChild(s);
+        }
+      });
+      msg.textContent = n + " de " + cells.length + " actualizadas · " + fecha;
+      btn.textContent = "Volver a consultar"; btn.disabled = false;
+    }).catch(function () {
+      msg.textContent = "no se ha podido conectar; siguen los precios de la hoja";
+      btn.disabled = false;
+    });
+  });
+
   var all = document.getElementById("all"), hint = document.getElementById("hint");
   all.addEventListener("click", function () {
     hint.textContent = "generando\u2026";
