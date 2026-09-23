@@ -165,6 +165,13 @@ h1 { font-size:clamp(30px,6vw,46px); font-weight:700; letter-spacing:-.02em; lin
 .ftable tr.wet .wp { color:var(--rojo); font-weight:600; }
 .ftable tr.windy .ww { color:var(--ambar); font-weight:600; }
 .wd { font-weight:400; color:var(--mut); }
+.wpeor { display:block; font-weight:400; font-size:12.5px; color:var(--rojo); }
+.ftable .wh { font-family:"IBM Plex Mono",monospace; font-size:12.5px; color:var(--mid);
+  font-variant-numeric:tabular-nums; white-space:nowrap; }
+.alt-tag { display:inline-block; margin-left:7px; font-family:"IBM Plex Mono",monospace;
+  font-size:9px; letter-spacing:.09em; text-transform:uppercase; color:var(--verde);
+  border:1px solid currentColor; border-radius:2px; padding:0 3px; vertical-align:1px; }
+.wxt tr.wet td, .wxt tr.windy td { background:color-mix(in srgb, var(--surf2) 70%, transparent); }
 .fnow { margin:0 0 14px; display:flex; flex-wrap:wrap; align-items:baseline; gap:10px; }
 .fbtn { font:inherit; font-size:14px; color:var(--acc); background:none; border:0; padding:0;
   cursor:pointer; border-bottom:1px solid currentColor; }
@@ -373,21 +380,25 @@ img { max-width:100%; }
     </table></div>
   </section>
   <section class="fuel wx">
-    <h3>El tiempo, etapa por etapa</h3>
-    <p class="f-int">Pon el día de salida y la página pide la previsión a Open-Meteo para los
-      puntos donde el tiempo decide la jornada: los puertos, la costa y el final de etapa. No es
-      el parte de la capital de provincia: cada punto se consulta con su altitud real, que para
-      San Glorio a 1.609&nbsp;m o Tarna a 1.492&nbsp;m cambia bastante las cosas. La previsión
-      llega como mucho a 16 días vista.</p>
+    <h3>El tiempo, parada por parada</h3>
+    <p class="f-int">Pon el día de salida y la página pide a Open-Meteo la previsión de
+      <strong>cada parada a la hora a la que vas a estar allí</strong>, no la media del día:
+      una franja de una hora antes a una hora después de tu paso. Están todas las paradas de
+      la etapa, no solo los puertos, porque a veces lo que fastidia el día es un valle o un
+      tramo de costa. Cada punto se consulta con su altitud real. Alcance máximo, 16 días.</p>
     <p class="fnow"><label class="wlab">Salgo el <input type="date" id="wdate"></label>
       <button class="fbtn" type="button" id="wgo">Ver la previsión</button>
       <span class="fmsg" id="wmsg"></span></p>
-    <div class="fwrap"><table class="ftable">
-      <thead><tr><th>Punto</th><th>Cielo</th><th>Máx / mín</th><th>Lluvia</th><th>Viento</th></tr></thead>
-      <tbody><tr class="f-day"><td colspan="5">Día 1 · <span class="wd" data-day="1">fecha sin fijar</span></td></tr><tr data-wx="0"><td class="wl">San Martín de la Vega</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="1"><td class="wl">Burgos</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="2"><td class="wl">Náveda</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr class="f-day"><td colspan="5">Día 2 · <span class="wd" data-day="2">fecha sin fijar</span></td></tr><tr data-wx="3"><td class="wl">Pto. de Palombera</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="4"><td class="wl">Llanes (costa)</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="5"><td class="wl">Mirador del Fito</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr class="f-day"><td colspan="5">Día 3 · <span class="wd" data-day="3">fecha sin fijar</span></td></tr><tr data-wx="6"><td class="wl">Tresviso</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="7"><td class="wl">Pto. de San Glorio</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="8"><td class="wl">Riaño</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr class="f-day"><td colspan="5">Día 4 · <span class="wd" data-day="4">fecha sin fijar</span></td></tr><tr data-wx="9"><td class="wl">Collada Llomena</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="10"><td class="wl">Pto. de Tarna</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="11"><td class="wl">Collada de Arnicio</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr class="f-day"><td colspan="5">Día 5 · <span class="wd" data-day="5">fecha sin fijar</span></td></tr><tr data-wx="12"><td class="wl">Teverga</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="13"><td class="wl">Pto. de Pajares</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="14"><td class="wl">León</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr></tbody>
+    <div class="fwrap"><table class="ftable wxt">
+      <thead><tr><th>Hora</th><th>Parada</th><th>Cielo</th><th>Temp.</th><th>Lluvia</th><th>Racha</th></tr></thead>
+      <tbody><tr class="f-day"><td colspan="6">Día 1 · <span class="wd" data-day="1">fecha sin fijar</span><span class="wpeor" data-peor="1"></span></td></tr><tr data-wx="0"><td class="wh">15:00</td><td class="wl">San Martín de la Vega</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="1"><td class="wh">17:10</td><td class="wl">Aranda de Duero</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="2"><td class="wh">18:25</td><td class="wl">Burgos</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="3"><td class="wh">20:05</td><td class="wl">Aguilar de Campoo</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="4"><td class="wh">20:40</td><td class="wl">Reinosa</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="5"><td class="wh">20:50</td><td class="wl">La Posada de Faustina</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr class="f-day"><td colspan="6">Día 2 · <span class="wd" data-day="2">fecha sin fijar</span><span class="wpeor" data-peor="2"></span></td></tr><tr data-wx="6"><td class="wh">09:00</td><td class="wl">La Posada de Faustina</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="7"><td class="wh">09:10</td><td class="wl">Puerto de Palombera<span class="alt-tag">puerto</span></td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="8"><td class="wh">09:43</td><td class="wl">Valle de Saja</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="9"><td class="wh">09:58</td><td class="wl">Cabezón de la Sal</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="10"><td class="wh">10:21</td><td class="wl">San Vicente de la Barquera<span class="alt-tag">puerto</span></td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="11"><td class="wh">10:57</td><td class="wl">Bufones de Arenillas<span class="alt-tag">puerto</span></td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="12"><td class="wh">11:15</td><td class="wl">Llanes</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="13"><td class="wh">12:30</td><td class="wl">Ribadesella</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="14"><td class="wh">13:05</td><td class="wl">La Cuevona de Cuevas del Agua</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="15"><td class="wh">14:45</td><td class="wl">Lastres</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="16"><td class="wh">16:30</td><td class="wl">Mirador del Fito<span class="alt-tag">puerto</span></td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="17"><td class="wh">17:37</td><td class="wl">Arriondas</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="18"><td class="wh">18:30</td><td class="wl">Cangas de Onís</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr class="f-day"><td colspan="6">Día 3 · <span class="wd" data-day="3">fecha sin fijar</span><span class="wpeor" data-peor="3"></span></td></tr><tr data-wx="19"><td class="wh">08:30</td><td class="wl">Cangas de Onís</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="20"><td class="wh">09:15</td><td class="wl">Arenas de Cabrales</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="21"><td class="wh">10:20</td><td class="wl">Tresviso<span class="alt-tag">puerto</span></td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="22"><td class="wh">11:40</td><td class="wl">Panes</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="23"><td class="wh">12:06</td><td class="wl">Desfiladero de La Hermida<span class="alt-tag">puerto</span></td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="24"><td class="wh">12:40</td><td class="wl">Potes</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="25"><td class="wh">13:40</td><td class="wl">Puerto de San Glorio<span class="alt-tag">puerto</span></td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="26"><td class="wh">13:55</td><td class="wl">Collado de Llesba<span class="alt-tag">puerto</span></td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="27"><td class="wh">14:50</td><td class="wl">Riaño</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="28"><td class="wh">16:35</td><td class="wl">Desfiladero de los Beyos<span class="alt-tag">puerto</span></td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="29"><td class="wh">18:05</td><td class="wl">Cangas de Onís</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr class="f-day"><td colspan="6">Día 4 · <span class="wd" data-day="4">fecha sin fijar</span><span class="wpeor" data-peor="4"></span></td></tr><tr data-wx="30"><td class="wh">09:00</td><td class="wl">Cangas de Onís</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="31"><td class="wh">09:45</td><td class="wl">La Roza (Piloña)</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="32"><td class="wh">10:30</td><td class="wl">Sellaño</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="33"><td class="wh">11:15</td><td class="wl">Collada Llomena<span class="alt-tag">puerto</span></td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="34"><td class="wh">12:00</td><td class="wl">Casielles</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="35"><td class="wh">13:00</td><td class="wl">Oseja de Sajambre</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="36"><td class="wh">14:45</td><td class="wl">Puerto de Tarna<span class="alt-tag">puerto</span></td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="37"><td class="wh">15:30</td><td class="wl">Soto de Caso</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="38"><td class="wh">16:05</td><td class="wl">Collada de Arnicio<span class="alt-tag">puerto</span></td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="39"><td class="wh">16:40</td><td class="wl">Infiesto</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr class="f-day"><td colspan="6">Día 5 · <span class="wd" data-day="5">fecha sin fijar</span><span class="wpeor" data-peor="5"></span></td></tr><tr data-wx="40"><td class="wh">09:30</td><td class="wl">Infiesto</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="41"><td class="wh">10:45</td><td class="wl">Oviedo</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="42"><td class="wh">12:00</td><td class="wl">San Martín de Teverga</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="43"><td class="wh">14:55</td><td class="wl">Bárzana de Quirós</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="44"><td class="wh">15:30</td><td class="wl">Pola de Lena</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="45"><td class="wh">16:10</td><td class="wl">Puerto de Pajares<span class="alt-tag">puerto</span></td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr><tr data-wx="46"><td class="wh">17:20</td><td class="wl">León</td><td class="wc">—</td><td class="wt">—</td><td class="wp">—</td><td class="ww">—</td></tr></tbody>
     </table></div>
+    <p class="cap">Las horas son las de la hoja de ruta; las de las paradas sin hora propia
+      salen interpoladas por distancia, así que tómalas con un margen de veinte minutos.
+      En rojo, lluvia por encima del 40&nbsp;% o rachas de más de 70&nbsp;km/h; en ámbar,
+      rachas de más de 50.</p>
   </section>
-  <script type="application/json" id="wxpts">[[40.2112, -3.5775], [42.3449, -3.681], [43.016, -4.2454], [43.0632, -4.2323], [43.4211, -4.7531], [43.4388, -5.1925], [43.2571, -4.6681], [43.0668, -4.7665], [42.9756, -5.0057], [43.2014, -5.138], [43.0847, -5.2179], [43.2309, -5.3681], [43.1705, -6.0956], [42.9947, -5.7611], [42.5984, -5.5719]]</script>
+  <script type="application/json" id="wxpts">[[40.2112, -3.5775, "15:00", 1], [41.6685, -3.728, "17:10", 1], [42.3449, -3.681, "18:25", 1], [42.7927, -4.2603, "20:05", 1], [43.0005, -4.1402, "20:40", 1], [43.016, -4.2454, "20:50", 1], [43.016, -4.2454, "09:00", 2], [43.0621, -4.2321, "09:10", 2], [43.2187, -4.3038, "09:43", 2], [43.3091, -4.2375, "09:58", 2], [43.3814, -4.3971, "10:21", 2], [43.4033, -4.6874, "10:57", 2], [43.4213, -4.7532, "11:15", 2], [43.4617, -5.0603, "12:30", 2], [43.4364, -5.0721, "13:05", 2], [43.514, -5.2704, "14:45", 2], [43.4391, -5.1934, "16:30", 2], [43.386, -5.1868, "17:37", 2], [43.3507, -5.1312, "18:30", 2], [43.3507, -5.1312, "08:30", 3], [43.3034, -4.8147, "09:15", 3], [43.2571, -4.6682, "10:20", 3], [43.3234, -4.5838, "11:40", 3], [43.255, -4.6147, "12:06", 3], [43.1537, -4.6232, "12:40", 3], [43.0668, -4.7665, "13:40", 3], [43.0765, -4.7497, "13:55", 3], [42.976, -5.0058, "14:50", 3], [43.1507, -5.0696, "16:35", 3], [43.3507, -5.1312, "18:05", 3], [43.3507, -5.1312, "09:00", 4], [43.3142, -5.2535, "09:45", 4], [43.258, -5.2021, "10:30", 4], [43.2014, -5.138, "11:15", 4], [43.1893, -5.0906, "12:00", 4], [43.1367, -5.0382, "13:00", 4], [43.0847, -5.2179, "14:45", 4], [43.1616, -5.3074, "15:30", 4], [43.2309, -5.3681, "16:05", 4], [43.3471, -5.363, "16:40", 4], [43.3471, -5.363, "09:30", 5], [43.3622, -5.8487, "10:45", 5], [43.1705, -6.0956, "12:00", 5], [43.1584, -5.9729, "14:55", 5], [43.1595, -5.8294, "15:30", 5], [42.9944, -5.7617, "16:10", 5], [42.5984, -5.5719, "17:20", 5]]</script>
 
   <section class="notes">
     <h3>Antes de salir</h3>
@@ -609,33 +620,28 @@ img { max-width:100%; }
     });
   });
 
-  /* --- prevision meteorologica (Open-Meteo, sin clave ni registro) --- */
+  /* --- prevision meteorologica: cada parada a su hora de paso --- */
   var WX = document.getElementById("wxpts");
   if (WX) (function () {
-    var PTS = JSON.parse(WX.textContent);
+    var PTS = JSON.parse(WX.textContent);          // [lat, lon, "HH:MM", etapa]
     var din = document.getElementById("wdate"), go = document.getElementById("wgo"),
         wmsg = document.getElementById("wmsg");
     var CODE = {
-      0: "Despejado", 1: "Casi despejado", 2: "Intervalos nubosos", 3: "Cubierto",
-      45: "Niebla", 48: "Niebla helada", 51: "Llovizna débil", 53: "Llovizna",
-      55: "Llovizna fuerte", 56: "Llovizna helada", 57: "Llovizna helada fuerte",
-      61: "Lluvia débil", 63: "Lluvia", 65: "Lluvia fuerte",
-      66: "Lluvia helada", 67: "Lluvia helada fuerte",
-      71: "Nieve débil", 73: "Nieve", 75: "Nieve fuerte", 77: "Cinarra",
-      80: "Chubascos aislados", 81: "Chubascos", 82: "Chubascos fuertes",
-      85: "Chubascos de nieve", 86: "Chubascos de nieve fuertes",
-      95: "Tormenta", 96: "Tormenta con granizo", 99: "Tormenta con granizo grande"
+      0:"Despejado",1:"Casi despejado",2:"Nubes y claros",3:"Cubierto",45:"Niebla",48:"Niebla helada",
+      51:"Llovizna débil",53:"Llovizna",55:"Llovizna fuerte",56:"Llovizna helada",57:"Llovizna helada",
+      61:"Lluvia débil",63:"Lluvia",65:"Lluvia fuerte",66:"Lluvia helada",67:"Lluvia helada",
+      71:"Nieve débil",73:"Nieve",75:"Nieve fuerte",77:"Cinarra",
+      80:"Chubascos aislados",81:"Chubascos",82:"Chubascos fuertes",
+      85:"Chubascos de nieve",86:"Chubascos de nieve",95:"Tormenta",96:"Tormenta con granizo",
+      99:"Tormenta con granizo"
     };
     var DIAS = ["domingo","lunes","martes","miércoles","jueves","viernes","sábado"];
     var MES = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto",
                "septiembre","octubre","noviembre","diciembre"];
     function iso(d) {
-      return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) +
-             "-" + ("0" + d.getDate()).slice(-2);
+      return d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" + ("0"+d.getDate()).slice(-2);
     }
-    function largo(d) {
-      return DIAS[d.getDay()] + " " + d.getDate() + " de " + MES[d.getMonth()];
-    }
+    function largo(d) { return DIAS[d.getDay()] + " " + d.getDate() + " de " + MES[d.getMonth()]; }
     try { var g = localStorage.getItem("picos-salida"); if (g) din.value = g; } catch (e) {}
     if (!din.value) din.value = "2026-09-25";   /* salida prevista del viaje */
 
@@ -655,43 +661,59 @@ img { max-width:100%; }
     go.addEventListener("click", function () {
       var d0 = new Date(din.value + "T12:00:00");
       if (isNaN(d0)) { wmsg.textContent = "pon primero una fecha"; return; }
-      var hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+      var hoy = new Date(); hoy.setHours(0,0,0,0);
       var off = Math.round((d0 - hoy) / 86400000);
       if (off < 0) { wmsg.textContent = "esa fecha ya ha pasado"; return; }
-      if (off + 5 > 15) {
-        wmsg.textContent = "la previsión solo llega a 16 días; aún es pronto";
-        return;
-      }
-      go.disabled = true; wmsg.textContent = "consultando…";
+      if (off + 5 > 15) { wmsg.textContent = "la previsión solo llega a 16 días; aún es pronto"; return; }
+      var fin = new Date(d0); fin.setDate(fin.getDate() + 5);
+      go.disabled = true; wmsg.textContent = "consultando " + PTS.length + " puntos…";
       var la = PTS.map(function (p) { return p[0]; }).join(",");
       var lo = PTS.map(function (p) { return p[1]; }).join(",");
       fetch("https://api.open-meteo.com/v1/forecast?latitude=" + la + "&longitude=" + lo +
-            "&daily=weather_code,temperature_2m_max,temperature_2m_min," +
-            "precipitation_probability_max,precipitation_sum,wind_speed_10m_max" +
-            "&timezone=Europe%2FMadrid&forecast_days=16")
+            "&hourly=weather_code,temperature_2m,precipitation,precipitation_probability," +
+            "wind_gusts_10m&timezone=Europe%2FMadrid" +
+            "&start_date=" + iso(d0) + "&end_date=" + iso(fin))
         .then(function (r) { if (!r.ok) throw 0; return r.json(); })
         .then(function (j) {
           if (!Array.isArray(j)) j = [j];
-          var rows = [].slice.call(document.querySelectorAll("tr[data-wx]"));
-          rows.forEach(function (tr) {
-            var i = +tr.dataset.wx, d = j[i];
-            var stage = 0, prev = tr.previousElementSibling;
-            while (prev && !prev.classList.contains("f-day")) prev = prev.previousElementSibling;
-            if (prev) stage = +prev.querySelector(".wd").dataset.day;
-            var idx = off + stage - 1;
-            if (!d || !d.daily || idx >= d.daily.time.length) return;
-            var code = d.daily.weather_code[idx],
-                mx = d.daily.temperature_2m_max[idx], mn = d.daily.temperature_2m_min[idx],
-                pp = d.daily.precipitation_probability_max[idx],
-                mm = d.daily.precipitation_sum[idx], vv = d.daily.wind_speed_10m_max[idx];
+          var peor = {};
+          [].forEach.call(document.querySelectorAll("tr[data-wx]"), function (tr) {
+            var i = +tr.dataset.wx, p = PTS[i], d = j[i];
+            if (!d || !d.hourly) return;
+            var dia = new Date(d0); dia.setDate(dia.getDate() + (p[3] - 1));
+            var h = +p[2].slice(0, 2);
+            var pp = 0, mm = 0, gu = 0, tt = null, code = null;
+            for (var k = 0; k < d.hourly.time.length; k++) {
+              var t = d.hourly.time[k];
+              if (t.slice(0, 10) !== iso(dia)) continue;
+              var hh = +t.slice(11, 13);
+              if (hh < h - 1 || hh > h + 1) continue;
+              pp = Math.max(pp, d.hourly.precipitation_probability[k] || 0);
+              mm += d.hourly.precipitation[k] || 0;
+              gu = Math.max(gu, d.hourly.wind_gusts_10m[k] || 0);
+              if (hh === h) { tt = d.hourly.temperature_2m[k]; code = d.hourly.weather_code[k]; }
+            }
+            if (tt === null) return;
             tr.querySelector(".wc").textContent = CODE[code] || ("código " + code);
-            tr.querySelector(".wt").textContent = Math.round(mx) + "° / " + Math.round(mn) + "°";
-            tr.querySelector(".wp").textContent =
-              (pp == null ? "—" : pp + "%") + (mm ? " · " + mm.toFixed(1) + " mm" : "");
-            tr.querySelector(".ww").textContent = Math.round(vv) + " km/h";
+            tr.querySelector(".wt").textContent = Math.round(tt) + "°";
+            tr.querySelector(".wp").textContent = pp + "%" + (mm >= 0.1 ? " · " + mm.toFixed(1) + " mm" : "");
+            tr.querySelector(".ww").textContent = Math.round(gu) + " km/h";
             tr.classList.toggle("wet", pp >= 40);
-            tr.classList.toggle("windy", vv >= 40);
-            tr.title = "Altitud del punto segun el modelo: " + Math.round(d.elevation) + " m";
+            tr.classList.toggle("windy", gu >= 50);
+            tr.classList.toggle("muyventoso", gu >= 70);
+            tr.title = "Altitud del punto según el modelo: " + Math.round(d.elevation) + " m";
+            var score = pp + Math.max(0, Math.round(gu) - 40) * 2;
+            var et = p[3];
+            if (!peor[et] || score > peor[et].score) {
+              peor[et] = { score: score, txt: tr.querySelector(".wl").firstChild.textContent,
+                           h: p[2], pp: pp, gu: Math.round(gu) };
+            }
+          });
+          [].forEach.call(document.querySelectorAll(".wpeor"), function (el) {
+            var w = peor[+el.dataset.peor];
+            el.textContent = (!w || w.score < 25) ? "" :
+              "Lo peor del día: " + w.txt + " a las " + w.h +
+              " — " + w.pp + "% de lluvia y rachas de " + w.gu + " km/h";
           });
           wmsg.textContent = "previsión de Open-Meteo, consultada ahora";
           go.textContent = "Volver a consultar"; go.disabled = false;
